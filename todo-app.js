@@ -43,7 +43,7 @@ incompleteTodos.forEach(function(item){
 });
 
 document.querySelector('button').addEventListener('click', function(){
-    console.log('Button is pressed!');
+    console.log('Button is pressed');
 });
 
 // const todosLeftText = document.createElement('p');
