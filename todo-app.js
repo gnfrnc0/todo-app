@@ -15,62 +15,36 @@ const todos = [{
     isCompleted: true
 }];
 
-// USING IF STATEMENT
-// todos.forEach(function(item){
-//     if(!item.isCompleted){
-//         let p = document.createElement('p');
-//         p.textContent = item.text;
+const filters= {
+    searchText: ''
+}
+
+const renderTodo = function(todos, filters){
+    todos.forEach(function(item){
+        let p = document.createElement('p');
+        p.textContent = item.text;
     
-//         document.querySelector('body').appendChild(p);
-//     }
-// });
+        document.querySelector('#todos').appendChild(p);
+    });
 
-// USING FILTER METHOD
-const incompleteTodos = todos.filter(function(item){
-    return !item.isCompleted;
+    const filteredTodo = todos.filter(function(todo){
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
+    });
+
+    document.querySelector('#todos').innerHTML = '';
+
+    filteredTodo.forEach(function(todo){
+        let p = document.createElement('p');
+        p.textContent=todo.text;
+
+        document.querySelector('#todos').appendChild(p);
+    });
+}
+
+renderTodo(todos,filters);
+
+document.querySelector('#new-todo').addEventListener('input', function(searchTerm){
+    filters.searchText = searchTerm.target.value;
+    renderTodo(todos, filters);
 });
-
-const summary = document.createElement('h2');
-summary.textContent = `You have ${incompleteTodos.length} todos left!`;
-
-document.querySelector('body').appendChild(summary);
-
-incompleteTodos.forEach(function(item){
-    let p = document.createElement('p');
-    p.textContent = item.text;
-
-    document.querySelector('body').appendChild(p);
-});
-
-document.querySelector('button').addEventListener('click', function(){
-    console.log('Button is pressed');
-});
-
-// const todosLeftText = document.createElement('p');
-
-// const incompleteTodos = todos.filter(function(todo){
-//     return !todo.isCompleted;
-// });
-// todosLeftText.textContent = `You have ${incompleteTodos.length} todos left`;
-// document.querySelector('body').append(todosLeftText);
-
-// todos.forEach(function(todo){
-//     let todoList = document.createElement('p');
-//     todoList.textContent = todo.text;
-//     document.querySelector('body').appendChild(todoList);
-// });
-
-// const paras = document.querySelectorAll('p');
-
-// // const paras_update = paras.filter(function(item){
-// //     return !item.textContent.includes('the');
-// // });
-
-// paras.forEach(function(item){
-//     if(item.textContent.includes('the')){
-//         item.remove();
-//     }
-// });
-
-// console.log(paras);
 
