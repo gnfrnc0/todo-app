@@ -63,12 +63,12 @@ document.querySelector('#hideCompleted').addEventListener('change', function(e){
     let checkbox_state = e.target.checked;
     filters.hideCompleted = checkbox_state;
 
-    const completed = todos.filter(function(item){
+    const incomplete = todos.filter(function(item){
         return !item.isCompleted;
     });
 
     if(filters.hideCompleted){
-        renderTodo(completed, filters);
+        renderTodo(incomplete, filters);
     }
     else {
         renderTodo(todos, filters);
