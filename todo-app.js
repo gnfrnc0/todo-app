@@ -43,8 +43,17 @@ const renderTodo = function(todos, filters){
 
 renderTodo(todos,filters);
 
-document.querySelector('#new-todo').addEventListener('input', function(searchTerm){
+document.querySelector('#filter-todo').addEventListener('input', function(searchTerm){
     filters.searchText = searchTerm.target.value;
     renderTodo(todos, filters);
 });
 
+document.querySelector('#addtodo-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    todos.push({
+        text: e.target.elements.addtodo.value,
+        isCompleted: false
+    });
+    e.target.elements.addtodo.value = '';
+    renderTodo(todos, filters);
+    });
