@@ -12,11 +12,12 @@ const todos = [{
     isCompleted: true
 },{
     text: 'Pay ticket',
-    isCompleted: true
+    isCompleted: false
 }];
 
 const filters= {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false
 }
 
 const renderTodo = function(todos, filters){
@@ -56,4 +57,20 @@ document.querySelector('#addtodo-form').addEventListener('submit', function(e){
     });
     e.target.elements.addtodo.value = '';
     renderTodo(todos, filters);
+});
+
+document.querySelector('#hideCompleted').addEventListener('change', function(e){
+    let checkbox_state = e.target.checked;
+    filters.hideCompleted = checkbox_state;
+
+    const completed = todos.filter(function(item){
+        return !item.isCompleted;
     });
+
+    if(filters.hideCompleted){
+        renderTodo(completed, filters);
+    }
+    else {
+        renderTodo(todos, filters);
+    }
+});
