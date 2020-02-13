@@ -1,24 +1,18 @@
-const todos = [{
-    text: 'Cook bacon',
-    isCompleted: false
-},{
-    text: 'Send mail',
-    isCompleted: true
-},{
-    text: 'Watch Netflix',
-    isCompleted: false
-},{
-    text: 'Go to Verizon',
-    isCompleted: true
-},{
-    text: 'Pay ticket',
-    isCompleted: false
-}];
+let todos = [];
 
 const filters= {
     searchText: '',
     hideCompleted: false
 }
+
+const todosJSON = localStorage.getItem('todos');
+
+// READ AND PARSE DATA WHEN APP STARTS
+if(todosJSON !== null){
+    todos = JSON.parse(todosJSON);
+    
+}
+// STRIGIFY AND WRITE THE DATE WHEN NEW DATA IS ADDED
 
 const renderTodo = function(todos, filters){
     todos.forEach(function(item){
@@ -28,7 +22,7 @@ const renderTodo = function(todos, filters){
         document.querySelector('#todos').appendChild(p);
     });
 
-    const filteredTodo = todos.filter(function(todo){
+    let filteredTodo = todos.filter(function(todo){
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
     });
 
@@ -55,6 +49,9 @@ document.querySelector('#addtodo-form').addEventListener('submit', function(e){
         text: e.target.elements.addtodo.value,
         isCompleted: false
     });
+    console.log(JSON.stringify(todos));
+    localStorage.setItem('todos', JSON.stringify(todos));
+
     e.target.elements.addtodo.value = '';
     renderTodo(todos, filters);
 });
